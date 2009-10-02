@@ -1,7 +1,5 @@
 #summary MonoTouch allows developers to create C# and .NET based applications that run on Apple's iPhone and Apple's iPod Touch devices, while taking advantage of the iPhone APIs and reusing both code and libraries that have been built for .NET, as well as existing skills.
 
-= Overview =
-
-MonoTouch allows developers to create C# and .NET based applications that run on Apple's iPhone and Apple's iPod Touch devices, while taking advantage of the iPhone APIs and reusing both code and libraries that have been built for .NET, as well as existing skills.
-
-[http://monotouch.net/ Get MonoTouch]
+[http://monotouch.net/Documentation Learn MonoTouch]
+[http://monotouch.net/Store Get MonoTouch]
+[http://monotouch.net/ MonoTouch Home]
