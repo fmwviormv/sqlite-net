@@ -42,7 +42,17 @@ public class User {
         c.Update(this);        
     }
 
-    public static User TryLogin(string username, string password, SQLiteConnection c) {
+    public static void UpdatePassword(string username, string oldPassword, string newPassword, SQLiteConnection c) {
+        var u = TryAuthenticate(username, oldPassword);
+        if (u != null) {
+            u.UpdatePassword(newPassword, c);
+        }
+        else {
+            throw new Exception("Could not authenticate " + username);
+        }
+    }
+
+    public static User TryAuthenticate(string username, string password, SQLiteConnection c) {
       var hash = HashPassword(password);
 
       var q = from u in db.Table<User>()
