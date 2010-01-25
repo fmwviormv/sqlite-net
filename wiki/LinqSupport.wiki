@@ -37,6 +37,19 @@ public class User {
         c.Insert(fav);
     }
 
+    public void RemoveFavorite(string url, SQLiteConnection c) {
+        var q = from f in c.Table<Favorite>()
+                where f.Url == url && f.UserId == Id
+                select f;
+        var fav = q.FirstOrDefault();
+        if (fav != null) {
+            c.Delete(fav);
+        }
+        else {
+            throw new Exception("Could not find favorite " + url + " for user " + Username);
+        }
+    }
+
     public void UpdatePassword(string newPassword, SQLiteConnection c) {
         PasswordHash = HashPassword(newPassword);
         c.Update(this);        
