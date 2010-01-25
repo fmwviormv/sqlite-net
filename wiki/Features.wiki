@@ -1,4 +1,5 @@
 #summary Documentation of the various features provided by the library
+#labels Featured
 
 = ORM =
 
