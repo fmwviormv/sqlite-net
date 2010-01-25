@@ -29,6 +29,19 @@ public class User {
         return q.ToArray();
     }
 
+    public void AddFavorite(string url, SQLiteConnection c) {
+        var fav = new Favorite() {
+            UserId = Id,
+            Url = url
+        };
+        c.Insert(fav);
+    }
+
+    public void UpdatePassword(string newPassword, SQLiteConnection c) {
+        PasswordHash = HashPassword(newPassword);
+        c.Update(this);        
+    }
+
     public static User TryLogin(string username, string password, SQLiteConnection c) {
       var hash = HashPassword(password);
 
