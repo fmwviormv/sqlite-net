@@ -1,5 +1,4 @@
 #summary A public list of desired features for the library
-#labels Featured
 
 Please list any features that you think will improve sqlite-net.
 
