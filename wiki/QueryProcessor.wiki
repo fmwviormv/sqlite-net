@@ -1,0 +1,56 @@
+#summary Describes the Linq support offered by sqlite-net.
+
+= Introduction =
+
+In order to make searching and retrieving your data easier, sqlite-net implements limited Linq support. This is done via the `Table` method available on `SQLiteConnections`.
+
+The `Where`, `OrderBy`, `OrderByDescending`, and `Take` queries have been implemented and translate to native SQL. This means that you can follow foreign keys, for instance, with just this code:
+
+{{{
+public class Favorite {
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+    public int UserId { get; set; }
+    public string Url { get; set; }
+}
+
+public class User {
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public string PasswordHash { get; set; }
+
+    public Favorite[] GetFavorites(SQLiteConnection c) {
+
+        var q = from f in c.Table<Favorite>()
+                where f.UserId == Id
+                select f;
+
+        return q.ToArray();
+    }
+
+    public static User TryLogin(string username, string password, SQLiteConnection c) {
+      var hash = HashPassword(password);
+
+      var q = from u in db.Table<User>()
+              where u.Username == username && PasswordHash == hash
+              select u;
+
+      return q.FirstOrDefault();
+    }
+}
+}}}
+
+
+= Supported =
+
+The following operators are available (see `TableQuery<T>.GetSqlName` for the current list):
+
+    `GreaterThanOrEqual`, `LessThan`, `LessThanOrEqual`, `And`, `AndAlso`, `Or`, `OrElse`, `Equal`, `NotEqual`
+
+The following expression constructs are supported:
+
+    Binrary expressions (normal operators), constants, type conversions, and member access expressions.
+
+Specifically, function calls are not yet supported. If you construct a query and a `NotSupportedException` is thrown, please [http://code.google.com/p/sqlite-net/issues/list file an Issue] so that support can be added.
+
