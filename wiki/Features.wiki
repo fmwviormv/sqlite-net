@@ -29,9 +29,9 @@ The following data types are supported in properties:
 
   * *Date Time* `DateTimes` are stored as `datetime` columns and are subject to the precision offered by SQLite.
 
-= Automatic Connection Mapping =
+= Automatic Connection Tracking =
 
-If your classes contain a reference to an `SQLiteConnection`, then that property will be set to the last connection that worked with that object. This feature is intended to make encapsulating your class's data more easy. For instance, you could define a class such as:
+If your classes contain a reference to an `SQLiteConnection`, then that property will be set to the last connection that worked with that object. This feature is intended to make encapsulating your object's data more easy. For instance, you could define a class such as:
 
 {{{
 public class Product {
@@ -55,4 +55,4 @@ public class Product {
 }
 }}}
 
-Without *Automatic Connection Mapping* you would have had to pass the `SQLiteConnection` object to the `GetOrderLines` function.
+Without *Automatic Connection Tracking* you would have had to pass the `SQLiteConnection` object to the `GetOrderLines` function.
