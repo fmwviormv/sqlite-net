@@ -31,7 +31,7 @@ The following data types are supported in properties:
 
 = Automatic Connection Tracking =
 
-If your classes contain a reference to an `SQLiteConnection`, then that property will be set to the last connection that worked with that object. This feature is intended to make encapsulating your object's data more easy. For instance, you could define a class such as:
+If your classes contain a settable reference to an `SQLiteConnection`, that property will be set to the last connection that worked with that object. This feature is intended to make encapsulating your object's data more easy. For instance, you could define a class such as:
 
 {{{
 public class Product {
@@ -45,7 +45,7 @@ public class Product {
 }
 }}}
 
-Now whenever objects of this type are Inserted, Updated, or Queried, then the `Connection` property will be set to the connection that performed those operations. This makes it easier to write methods such as:
+Now whenever objects of this type are Inserted, Updated, or Queried, the `Connection` property will be set to the connection that performed those operations. This makes it easier to write methods such as:
 
 {{{
 public class Product {
@@ -55,4 +55,4 @@ public class Product {
 }
 }}}
 
-Without *Automatic Connection Tracking* you would have had to pass the `SQLiteConnection` object to the `GetOrderLines` function.
+Without *Automatic Connection Tracking* you would have to pass the `SQLiteConnection` object to the `GetOrderLines` function.
