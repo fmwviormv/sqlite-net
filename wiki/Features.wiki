@@ -28,3 +28,31 @@ The following data types are supported in properties:
   * *String* Strings are stored using `varchars` with a maximum size specified by the *`MaxLength`* attribute. If the attribute isn't specified, the max length defaults to 140.
 
   * *Date Time* `DateTimes` are stored as `datetime` columns and are subject to the precision offered by SQLite.
+
+= Automatic Connection Mapping =
+
+If your classes contain a reference to an `SQLiteConnection`, then that property will be set to the last connection that worked with that object. This feature is intended to make encapsulating your class's data more easy. For instance, you could define a class such as:
+
+{{{
+public class Product {
+
+	[AutoIncrement, PrimaryKey]
+	public int Id { get; private set; }
+	public string Name { get; private set; }
+	public decimal Price { get; private set; }
+
+	public TestDb Connection { get; private set; }
+}
+}}}
+
+Now whenever objects of this type are Inserted, Updated, or Queried, then the `Connection` property will be set to the connection that performed those operations. This makes it easier to write methods such as:
+
+{{{
+public class Product {
+	public OrderLine[] GetOrderLines () {
+		return Connection.Table<OrderLine> ().Where (o => o.ProductId == Id).ToArray ();
+	}
+}
+}}}
+
+Without *Automatic Connection Mapping* you would have had to pass the `SQLiteConnection` object to the `GetOrderLines` function.
