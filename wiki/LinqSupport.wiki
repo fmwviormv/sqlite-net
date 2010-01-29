@@ -1,4 +1,5 @@
 #summary Describes the Linq support offered by sqlite-net.
+#labels Featured
 
 = Introduction =
 
