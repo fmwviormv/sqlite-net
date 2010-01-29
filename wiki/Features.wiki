@@ -41,7 +41,7 @@ public class Product {
 	public string Name { get; private set; }
 	public decimal Price { get; private set; }
 
-	public TestDb Connection { get; private set; }
+	public SQLiteConnection Connection { get; private set; }
 }
 }}}
 
