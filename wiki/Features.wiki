@@ -15,6 +15,8 @@ The following attributes are used:
 
   * *`MaxLength`* If this property is a `String` then *`MaxLength`* is used to specify the `varchar` max size. The default max length is 140.
 
+  * *`Ignore`* This property will not be in the table.
+
 The following data types are supported in properties:
 
   * *Integers* Integers are stored using the `integer` or `bigint` SQLite types.
@@ -28,31 +30,3 @@ The following data types are supported in properties:
   * *String* Strings are stored using `varchars` with a maximum size specified by the *`MaxLength`* attribute. If the attribute isn't specified, the max length defaults to 140.
 
   * *Date Time* `DateTimes` are stored as `datetime` columns and are subject to the precision offered by SQLite.
-
-= Automatic Connection Tracking =
-
-If your classes contain a settable reference to an `SQLiteConnection`, that property will be set to the last connection that worked with that object. This feature is intended to make encapsulating your object's data more easy. For instance, you could define a class such as:
-
-{{{
-public class Product {
-
-	[AutoIncrement, PrimaryKey]
-	public int Id { get; private set; }
-	public string Name { get; private set; }
-	public decimal Price { get; private set; }
-
-	public SQLiteConnection Connection { get; private set; }
-}
-}}}
-
-Now whenever objects of this type are Inserted, Updated, or Queried, the `Connection` property will be set to the connection that performed those operations. This makes it easier to write methods such as:
-
-{{{
-public class Product {
-	public OrderLine[] GetOrderLines () {
-		return Connection.Table<OrderLine> ().Where (o => o.ProductId == Id).ToArray ();
-	}
-}
-}}}
-
-Without *Automatic Connection Tracking* you would have to pass the `SQLiteConnection` object to the `GetOrderLines` function.
